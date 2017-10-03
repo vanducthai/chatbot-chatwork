@@ -16,6 +16,7 @@ module.exports = (robot) ->
     res.emote "Tìm người trả tiền chè nào! :D"
 
   robot.hear /^hello/i, (res) ->
+    return if isChatBot(res)
     welcomes = [
       "Hello em ku te o!",
       "Anh đẹp giai! Mời chè team đi",
@@ -25,16 +26,21 @@ module.exports = (robot) ->
     res.reply res.random welcomes
   
   robot.hear /IQ/i, (res) ->
+    return if isChatBot(res)
     res.reply "Em ai quy cao lắm đấy!"
 
   robot.hear /mời chè/i, (res) ->
+    return if isChatBot(res)
     res.reply "Yeah! Đẹp trai lắm!"
 
   robot.hear /haylam/i, (res) ->
+    return if isChatBot(res)
     res.reply "Hay lắm :p"
 
   robot.hear /cu te/i, (res) ->
+    return if isChatBot(res)
     res.reply "Ý em là Kuteo à!"
+  
   robot.hear /bug/i, (res) ->
     return if isChatBot(res)
     bugs = [
