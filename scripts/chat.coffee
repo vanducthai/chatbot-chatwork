@@ -4,6 +4,15 @@ module.exports = (robot) ->
     if res.envelope.user.id.toString() is chatBotID
       return true
     return false
+
+  replyUser = (res, txt) -> 
+    envelope = res.envelope
+    userID = envelope.user.id
+    roomID = envelope.user.room
+    messageID = res.message.id
+    message = "[rp aid=#{userID} to=#{roomID}-#{messageID}] #{envelope.user.name} \n#{txt}"
+    res.send message
+
   robot.hear /^kem xôi$/i, (res) ->
     return if isChatBot(res)
     teams = ["Diệu", "Trung", "Tùng", "Duy", "Dũng", "Hoa", "Yến", "Nhàn", "Hưng", "Hợi"]
@@ -13,7 +22,7 @@ module.exports = (robot) ->
     return if isChatBot(res)
     if res.match.input is "kem xôi"
       return
-    res.emote "Tìm người trả tiền chè nào! :D"
+    res.send "Tìm người trả tiền chè nào! :D"
 
   robot.hear /^hello/i, (res) ->
     return if isChatBot(res)
@@ -23,23 +32,24 @@ module.exports = (robot) ->
       "Ku te",
       "Hi em!"
     ]
-    res.reply res.random welcomes
+    replyUser res, res.random welcomes
   
   robot.hear /IQ/i, (res) ->
     return if isChatBot(res)
-    res.reply "Em ai quy cao lắm đấy!"
+    replyUser res, "Em ai quy cao lắm đấy!"
 
   robot.hear /mời chè/i, (res) ->
     return if isChatBot(res)
-    res.reply "Yeah! Đẹp trai lắm!"
+    replyUser res, "Yeah! Đẹp trai lắm!"
 
   robot.hear /haylam/i, (res) ->
     return if isChatBot(res)
-    res.reply "Hay lắm :p"
+    replyUser res, "Hay lắm :p"
 
   robot.hear /cu te/i, (res) ->
     return if isChatBot(res)
-    res.reply "Ý em là Kuteo à!"
+    replyUser res, "Ý em là Kuteo à!"
+    # res.reply "Ý em là Kuteo à!"
   
   robot.hear /bug/i, (res) ->
     return if isChatBot(res)
@@ -50,7 +60,7 @@ module.exports = (robot) ->
       "Bug to thế :(",
       "Bug thế này release sao được ;("
     ]
-    res.reply res.random bugs
+    replyUser res, res.random bugs
   
   robot.hear /update ticket/i, (res) ->
     return if isChatBot(res)
@@ -58,8 +68,9 @@ module.exports = (robot) ->
       "Anh em update ticket nhanh đi nhé. Bot nhắc nhiều rồi đấy!",
       "Anh Yoshizawa đang kêu đấy. Anh em update task nhé!"
     ]
-    res.reply res.random tickets
+    res.send res.random tickets
 
   robot.hear /^test$/i, (res) ->
     return if isChatBot(res)
-    res.send "Test nhanh lên em. Khách hàng đang chờ"
+    replyUser res, "Test nhanh lên em. Khách hàng đang chờ"
+  
