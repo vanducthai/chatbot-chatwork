@@ -12,7 +12,7 @@ module.exports = (robot) ->
     messageID = res.message.id
     message = "[rp aid=#{userID} to=#{roomID}-#{messageID}] #{envelope.user.name} \n#{txt}"
     res.send message
-
+  
   robot.hear /^kem xôi$/i, (res) ->
     return if isChatBot(res)
     teams = ["Diệu", "Trung", "Tùng", "Duy", "Dũng", "Hoa", "Yến", "Nhàn", "Hưng", "Hợi"]
@@ -74,3 +74,11 @@ module.exports = (robot) ->
     return if isChatBot(res)
     replyUser res, "Test nhanh lên em. Khách hàng đang chờ"
   
+  robot.hear /a thắng/i, (res) -> 
+    res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
+
+  robot.hear /anh thắng/i, (res) -> 
+    res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
+  
+  robot.hear /diệu/i, (res) -> 
+    res.send "anh Diệu trắng như than :D :D"
