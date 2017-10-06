@@ -1,5 +1,22 @@
 module.exports = (robot) ->
   chatBotID = process.env.HUBOT_CHATWORK_BOT_ID
+  qaSheetURL = "https://docs.google.com/a/hblab.vn/spreadsheets/d/1xOHYIQMQWIhRK0LBzvONAhXkeIyCZNQ9sfDswTSEUao/edit?usp=drive_web"
+  qcCheckListSheetURL = "https://drive.google.com/drive/folders/0By-hGffj5wPaSEZBXzhkV1lRUzA?usp=sharing"
+  listUsers = {
+    "2271814": "Hoa",
+    "2189871": "Trung",
+    "2283905": "Tùng",
+    "2284642": "Duy",
+    "2006399": "Ngọc",
+    "2389267": "Hưng",
+    "2406328": "Nhàn",
+    "2452050": "Dũng",
+    "2502915": "Yến",
+    "704223": "A Thắng",
+    "862029": "Diệu"
+  }
+  listUserIDs = ["2271814", "2189871", "2283905", "2284642", "2006399", "2389267", "2406328", "2452050", "2502915", "704223", "862029"]
+
   isChatBot = (res) -> 
     if res.envelope.user.id.toString() is chatBotID
       return true
@@ -15,8 +32,10 @@ module.exports = (robot) ->
   
   robot.hear /^kem xôi$/i, (res) ->
     return if isChatBot(res)
-    teams = ["Diệu", "Trung", "Tùng", "Duy", "Dũng", "Hoa", "Yến", "Nhàn", "Hưng", "Hợi"]
-    res.send (res.random teams) + " trả tiền"
+    userID = res.random listUserIDs
+    message = "[To:#{userID}] "
+    message += listUsers[userID] + " trả tiền" 
+    res.send message
   
   robot.hear /kem xôi/i, (res) ->
     return if isChatBot(res)
@@ -34,7 +53,7 @@ module.exports = (robot) ->
     ]
     replyUser res, res.random welcomes
   
-  robot.hear /IQ/i, (res) ->
+  robot.hear /IQ /i, (res) ->
     return if isChatBot(res)
     replyUser res, "Em ai quy cao lắm đấy!"
 
@@ -49,7 +68,6 @@ module.exports = (robot) ->
   robot.hear /cu te/i, (res) ->
     return if isChatBot(res)
     replyUser res, "Ý em là Kuteo à!"
-    # res.reply "Ý em là Kuteo à!"
   
   robot.hear /bug/i, (res) ->
     return if isChatBot(res)
@@ -75,10 +93,37 @@ module.exports = (robot) ->
     replyUser res, "Test nhanh lên em. Khách hàng đang chờ"
   
   robot.hear /a thắng/i, (res) -> 
+    return if isChatBot(res)
     res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
 
   robot.hear /anh thắng/i, (res) -> 
+    return if isChatBot(res)
     res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
   
   robot.hear /diệu/i, (res) -> 
+    return if isChatBot(res)
     res.send "anh Diệu trắng như than :D :D"
+
+  robot.hear /(y)/i, (res) -> 
+    return if isChatBot(res)
+    res.send "(y)"
+  
+  robot.hear /gửi QA sheet/i, (res) -> 
+    return if isChatBot(res)
+    replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
+  
+  robot.hear /gửi Q&A sheet/i, (res) -> 
+    return if isChatBot(res)
+    replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
+  
+  robot.hear /gửi QC checklist/i, (res) -> 
+    return if isChatBot(res)
+    replyUser res, "QC Checklist Sheet đây:\n" + qcCheckListSheetURL
+  
+  robot.hear /hihi/i, (res) -> 
+    return if isChatBot(res)
+    replyUser res, "A hihi! Đồ ngốc!"
+  
+  robot.hear /lìu lìu/i, (res) -> 
+    return if isChatBot(res)
+    replyUser res, "Quá lìu tìu!!!"
