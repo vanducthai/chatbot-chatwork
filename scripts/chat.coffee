@@ -104,9 +104,9 @@ module.exports = (robot) ->
     return if isChatBot(res)
     res.send "anh Diệu trắng như than :D :D"
 
-  robot.hear /(y)/i, (res) -> 
-    return if isChatBot(res)
-    res.send "(y)"
+  # robot.hear /(y)/i, (res) -> 
+  #   return if isChatBot(res)
+  #   res.send "(y)"
   
   robot.hear /gửi QA sheet/i, (res) -> 
     return if isChatBot(res)
