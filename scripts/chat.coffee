@@ -2,6 +2,8 @@ module.exports = (robot) ->
   chatBotID = process.env.HUBOT_CHATWORK_BOT_ID
   qaSheetURL = "https://docs.google.com/a/hblab.vn/spreadsheets/d/1xOHYIQMQWIhRK0LBzvONAhXkeIyCZNQ9sfDswTSEUao/edit?usp=drive_web"
   qcCheckListSheetURL = "https://drive.google.com/drive/folders/0By-hGffj5wPaSEZBXzhkV1lRUzA?usp=sharing"
+  databaseSheetURL = "https://docs.google.com/spreadsheets/d/15IHjzoeoazJEDN0qVq4phSGib_JTBthNo5L3cxouLn4/edit#gid=788854534"
+  noiquySheetURL = "https://docs.google.com/spreadsheets/d/18lPPmJZyrpRb1T5rzLu6CaKb0OgkUuGtYY-Ni8nDdRM/edit#gid=0"
   listUsers = {
     "2271814": "Hoa",
     "2189871": "Trung",
@@ -13,9 +15,10 @@ module.exports = (robot) ->
     "2452050": "Dũng",
     "2502915": "Yến",
     "704223": "A Thắng",
-    "862029": "Diệu"
+    "862029": "Diệu",
+    "2626205": "Nam"
   }
-  listUserIDs = ["2271814", "2189871", "2283905", "2284642", "2006399", "2389267", "2406328", "2452050", "2502915", "704223", "862029"]
+  listUserIDs = ["2271814", "2189871", "2283905", "2284642", "2006399", "2389267", "2406328", "2452050", "2502915", "704223", "862029", "2626205"]
 
   isChatBot = (res) -> 
     if res.envelope.user.id.toString() is chatBotID
@@ -99,7 +102,12 @@ module.exports = (robot) ->
   robot.hear /anh thắng/i, (res) -> 
     return if isChatBot(res)
     res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
-  
+  robot.hear /#database/i, (res) -> 
+    replyUser res, databaseSheetURL
+
+  robot.hear /#noiquy/i, (res) -> 
+    replyUser res, noiquySheetURL
+
   robot.hear /diệu/i, (res) -> 
     return if isChatBot(res)
     res.send "anh Diệu trắng như than :D :D"
@@ -108,15 +116,15 @@ module.exports = (robot) ->
   #   return if isChatBot(res)
   #   res.send "(y)"
   
-  robot.hear /gửi QA sheet/i, (res) -> 
+  robot.hear /#qa/i, (res) -> 
     return if isChatBot(res)
     replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
   
-  robot.hear /gửi Q&A sheet/i, (res) -> 
+  robot.hear /#Q&A/i, (res) -> 
     return if isChatBot(res)
     replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
   
-  robot.hear /gửi QC checklist/i, (res) -> 
+  robot.hear /#qcchecklist/i, (res) -> 
     return if isChatBot(res)
     replyUser res, "QC Checklist Sheet đây:\n" + qcCheckListSheetURL
   
