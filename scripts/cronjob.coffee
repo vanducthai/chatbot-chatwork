@@ -3,7 +3,7 @@
 
 cronJob = require('cron').CronJob
 module.exports = (robot) ->
-  tz = 'Asia/Hanoi'
+  tz = 'Asia/Saigon'
   #Reminder: Daily meeting
   dailyMtg = () ->
     envelope = room: process.env.HUBOT_CHATWORK_ROOMS
