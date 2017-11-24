@@ -20,7 +20,7 @@ module.exports = (robot) ->
   }
   toAll = ""
   for id, name of listUsers
-    toAll += "[To:#{id}] {name}\n"
+    toAll += "[To:#{id}] #{name}\n"
   rooms = process.env.HUBOT_CHATWORK_ROOMS.split ","
   envelope = room: rooms[0]
   #Reminder: Daily meeting
