@@ -25,6 +25,6 @@ module.exports = (robot) ->
     do dailyUpdateTicket
   ), null, false, tz).start()
 
-  new cronJob('30 55 2 * * 1-5', (->
+  new cronJob('30 55 14 * * 1-5', (->
     do playKemxoi
   ), null, false, tz).start()
