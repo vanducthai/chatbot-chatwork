@@ -15,7 +15,7 @@ module.exports = (robot) ->
     "2502915": "Yến",
     "704223": "A Thắng",
     "862029": "Diệu",
-    "2626205": "Nam",
+    "2833545": "Mạnh",
     "2726824": "A Hào"
   }
   toAll = ""
@@ -42,6 +42,6 @@ module.exports = (robot) ->
     do dailyUpdateTicket
   ), null, false, tz).start()
 
-  new cronJob('30 55 14 * * 1-5', (->
+  new cronJob('30 30 14 * * 1-5', (->
     do playKemxoi
   ), null, false, tz).start()
