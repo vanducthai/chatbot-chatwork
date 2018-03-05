@@ -6,7 +6,7 @@ module.exports = (robot) ->
   noiquySheetURL = "https://docs.google.com/spreadsheets/d/18lPPmJZyrpRb1T5rzLu6CaKb0OgkUuGtYY-Ni8nDdRM/edit#gid=0"
   listUsers = {
     "2271814": "Hoa",
-    "2189871": "Trung",
+    "2916062": "A Toàn",
     "2283905": "Tùng",
     "2284642": "Duy",
     "2006399": "Ngọc",
@@ -18,7 +18,7 @@ module.exports = (robot) ->
     "2833545": "Mạnh",
     "2726824": "A Hào"
   }
-  listUserIDs = ["2271814", "2189871", "2283905", "2284642", "2006399", "2406328", "2452050", "2502915", "704223", "862029", "2833545", "2726824"]
+  listUserIDs = ["2271814", "2916062", "2283905", "2284642", "2006399", "2406328", "2452050", "2502915", "704223", "862029", "2833545", "2726824"]
 
   isChatBot = (res) -> 
     if res.envelope.user.id.toString() is chatBotID
@@ -110,7 +110,11 @@ module.exports = (robot) ->
 
   robot.hear /diệu/i, (res) -> 
     return if isChatBot(res)
-    res.send "anh Diệu trắng như than :D :D"
+    res.send "Hello, Tùng điệu đà :D"
+
+  robot.hear /Hào/i, (res) -> 
+    return if isChatBot(res)
+    res.send "A Hào mời chè à :D"
 
   # robot.hear /(y)/i, (res) -> 
   #   return if isChatBot(res)

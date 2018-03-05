@@ -6,7 +6,7 @@ module.exports = (robot) ->
   tz = 'Asia/Saigon'
   listUsers = {
     "2271814": "Hoa",
-    "2189871": "Trung",
+    "2916062": "A Toàn",
     "2283905": "Tùng",
     "2284642": "Duy",
     "2006399": "Ngọc",
