@@ -4,27 +4,28 @@ module.exports = (robot) ->
   qcCheckListSheetURL = "https://drive.google.com/drive/folders/0By-hGffj5wPaSEZBXzhkV1lRUzA?usp=sharing"
   databaseSheetURL = "https://docs.google.com/spreadsheets/d/15IHjzoeoazJEDN0qVq4phSGib_JTBthNo5L3cxouLn4/edit#gid=788854534"
   noiquySheetURL = "https://docs.google.com/spreadsheets/d/18lPPmJZyrpRb1T5rzLu6CaKb0OgkUuGtYY-Ni8nDdRM/edit#gid=0"
-  listUsers = {
-    "2271814": "Hoa",
-    "2916062": "A Toàn",
-    "2283905": "Tùng",
-    "2284642": "Duy",
-    "2006399": "Ngọc",
-    "2406328": "Nhàn",
-    "2452050": "Dũng",
-    "2502915": "Yến",
-    "704223": "A Thắng",
-    "862029": "Diệu",
-    "2833545": "Mạnh",
-    "2726824": "A Hào"
-  }
-  listUserIDs = ["2271814", "2916062", "2283905", "2284642", "2006399", "2406328", "2452050", "2502915", "704223", "862029", "2833545", "2726824"]
+  listUsers = {}
+  listUserIDs = []
+
+  d3RoomID = process.env.D3_ROOM
+  # get users from rooms D3
+  robot.http("https://api.chatwork.com/v2/rooms/" + d3RoomID + "/members")
+    # .header('Content-Type', 'application/json')
+    .header('X-ChatWorkToken', '3a9a18884f494c810e4ccb124846f8b2')
+    .get() (err, res, body) ->
+      for item in JSON.parse(body)
+        listUsers[item.account_id] = item.name
+        listUserIDs.push(item.account_id)
 
   isChatBot = (res) -> 
     if res.envelope.user.id.toString() is chatBotID
       return true
     return false
-
+  isD3Room = (res)  ->
+    envelope = res.envelope
+    roomID = envelope.user.room
+    return true if roomID is d3RoomID
+    return false
   replyUser = (res, txt) -> 
     envelope = res.envelope
     userID = envelope.user.id
@@ -34,6 +35,7 @@ module.exports = (robot) ->
     res.send message
   
   robot.hear /^kem xôi$/i, (res) ->
+    return if isD3Room is false
     return if isChatBot(res)
     userID = res.random listUserIDs
     message = "[To:#{userID}] "
@@ -41,6 +43,7 @@ module.exports = (robot) ->
     res.send message
   
   robot.hear /kem xôi/i, (res) ->
+    return if isD3Room is false
     return if isChatBot(res)
     if res.match.input is "kem xôi"
       return
@@ -84,6 +87,7 @@ module.exports = (robot) ->
     replyUser res, res.random bugs
   
   robot.hear /update ticket/i, (res) ->
+    return if isD3Room is true
     return if isChatBot(res)
     tickets = [
       "Anh em update ticket nhanh đi nhé. Bot nhắc nhiều rồi đấy!",
@@ -92,6 +96,7 @@ module.exports = (robot) ->
     res.send res.random tickets
 
   robot.hear /^test$/i, (res) ->
+    return if isD3Room is true
     return if isChatBot(res)
     replyUser res, "Test nhanh lên em. Khách hàng đang chờ"
   
@@ -106,9 +111,10 @@ module.exports = (robot) ->
     replyUser res, databaseSheetURL
 
   robot.hear /#noiquy/i, (res) -> 
+    return if isD3Room is true
     replyUser res, noiquySheetURL
 
-  robot.hear /diệu/i, (res) -> 
+  robot.hear /tùng/i, (res) -> 
     return if isChatBot(res)
     res.send "Hello, Tùng điệu đà :D"
 
@@ -121,14 +127,17 @@ module.exports = (robot) ->
   #   res.send "(y)"
   
   robot.hear /#qa/i, (res) -> 
+    return if isD3Room is true
     return if isChatBot(res)
     replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
   
-  robot.hear /#Q&A/i, (res) -> 
+  robot.hear /#Q&A/i, (res) ->
+    return if isD3Room is true 
     return if isChatBot(res)
     replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
   
-  robot.hear /#qcchecklist/i, (res) -> 
+  robot.hear /#qcchecklist/i, (res) ->
+    return if isD3Room is true 
     return if isChatBot(res)
     replyUser res, "QC Checklist Sheet đây:\n" + qcCheckListSheetURL
   
