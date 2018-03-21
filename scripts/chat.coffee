@@ -39,7 +39,11 @@ module.exports = (robot) ->
     return if isChatBot(res)
     userID = res.random listUserIDs
     message = "[To:#{userID}] "
-    message += listUsers[userID] + " trả tiền" 
+    message += listUsers[userID]
+    if userID is chatBotID
+      message += " không trả tiền đâu nhé :v"
+    else
+      message += " trả tiền"
     res.send message
   
   robot.hear /kem xôi/i, (res) ->
