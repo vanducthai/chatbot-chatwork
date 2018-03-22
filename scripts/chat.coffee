@@ -71,6 +71,14 @@ module.exports = (robot) ->
     return if isChatBot(res)
     replyUser res, "Yeah! Đẹp trai lắm!"
 
+  robot.hear /cảm ơn/i, (res) ->
+    return if isChatBot(res)
+    replyUser res, "(h)(h)(h)"
+
+  robot.hear /xin phép/i, (res) ->
+    return if isChatBot(res)
+    replyUser res, "Ok baby."
+
   robot.hear /haylam/i, (res) ->
     return if isChatBot(res)
     replyUser res, "Hay lắm :p"
@@ -104,14 +112,16 @@ module.exports = (robot) ->
     return if isChatBot(res)
     replyUser res, "Test nhanh lên em. Khách hàng đang chờ"
   
-  robot.hear /a thắng/i, (res) -> 
-    return if isChatBot(res)
-    res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
+  # robot.hear /a thắng/i, (res) -> 
+  #   return if isChatBot(res)
+  #   res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
 
-  robot.hear /anh thắng/i, (res) -> 
-    return if isChatBot(res)
-    res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
+  # robot.hear /anh thắng/i, (res) -> 
+  #   return if isChatBot(res)
+  #   res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
+  
   robot.hear /#database/i, (res) -> 
+    return if isD3Room is true
     replyUser res, databaseSheetURL
 
   robot.hear /#noiquy/i, (res) -> 
