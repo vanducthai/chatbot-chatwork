@@ -49,7 +49,7 @@ module.exports = (robot) ->
   robot.hear /kem xôi/i, (res) ->
     return if isD3Room is false
     return if isChatBot(res)
-    if res.match.input is "kem xôi"
+    if res.match.input.toLowerCase() is "kem xôi"
       return
     res.send "Tìm người trả tiền chè nào! :D"
 

@@ -23,7 +23,7 @@ module.exports = (robot) ->
     toAll += "[To:#{id}] #{name}\n"
   rooms = process.env.HUBOT_CHATWORK_ROOMS.split ","
   envelope = room: rooms[0]
-  d3RoomID = process.env.D3_ROOM  
+  d3RoomID = process.env.D3_ROOM
   #Reminder: Daily meeting
   dailyMtg = () ->
     robot.send envelope, toAll + "Daily Meeting!\n Mọi người đứng dậy đi nào!"
