@@ -28,12 +28,19 @@ module.exports = (robot) ->
   dailyMtg = () ->
     robot.send envelope, toAll + "Daily Meeting!\n Mọi người đứng dậy đi nào!"
   
+  weeklyMtg = () ->
+    robot.send d3RoomID, toAll + "TO ALL >>> \nWeekly Meeting!\n Mọi người ra phòng DREAM ROOM để họp nhé!"
+
   #for golang
   dailyUpdateTicket = () ->
     robot.send envelope, toAll + "Mọi người update ticket trước 9h sáng nhé!"
 
   playKemxoi = () ->
     robot.send d3RoomID, toAll + "Ai kem xôi không!"
+
+  new cronJob('30 55 16 * * 4', (->
+    do weeklyMtg
+  ), null, false, tz).start()
 
   new cronJob('30 14 08 * * 1-5', (->
     do dailyMtg
