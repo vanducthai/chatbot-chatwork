@@ -7,11 +7,12 @@ module.exports = (robot) ->
   listUsers = {}
   listUserIDs = []
 
-  d3RoomID = process.env.D3_ROOM
-  # get users from rooms D3
-  robot.http("https://api.chatwork.com/v2/rooms/" + d3RoomID + "/members")
+  d2RoomID = process.env.D2_ROOM
+  chatworkToken = process.env.HUBOT_CHATWORK_TOKEN
+  # get users from rooms D2
+  robot.http("https://api.chatwork.com/v2/rooms/" + d2RoomID + "/members")
     # .header('Content-Type', 'application/json')
-    .header('X-ChatWorkToken', '3a9a18884f494c810e4ccb124846f8b2')
+    .header('X-ChatWorkToken', chatworkToken)
     .get() (err, res, body) ->
       for item in JSON.parse(body)
         listUsers[item.account_id] = item.name
@@ -21,10 +22,10 @@ module.exports = (robot) ->
     if res.envelope.user.id.toString() is chatBotID
       return true
     return false
-  isD3Room = (res)  ->
+  isD2Room = (res)  ->
     envelope = res.envelope
     roomID = envelope.user.room
-    return true if roomID is d3RoomID
+    return true if roomID is d2RoomID
     return false
   replyUser = (res, txt) -> 
     envelope = res.envelope
@@ -35,7 +36,7 @@ module.exports = (robot) ->
     res.send message
   
   robot.hear /^kem xôi$/i, (res) ->
-    return if isD3Room is false
+    return if isD2Room is false
     return if isChatBot(res)
     userID = res.random listUserIDs
     message = "[To:#{userID}] "
@@ -47,118 +48,28 @@ module.exports = (robot) ->
     res.send message
   
   robot.hear /kem xôi/i, (res) ->
-    return if isD3Room is false
+    return if isD2Room is false
     return if isChatBot(res)
+    kemxois = [
+      "Hôm nay ai sẽ là người may mắn được mời mọi người đây (h)",
+      "Dù kết quả như thế nào thì cũng Một nụ cười luôn hé nhé. (*)",
+      "Quay đều, quay đều, quay đều!\nHôm nay là ngày của bạn! (dance)"
+    ]
     if res.match.input.toLowerCase() is "kem xôi"
       return
-    res.send "Tìm người trả tiền chè nào! :D"
+    res.send res.random kemxois
 
-  robot.hear /^hello/i, (res) ->
+  robot.hear /nghỉ/i, (res) ->
+    return if isD2Room is true
     return if isChatBot(res)
-    welcomes = [
-      "Hello em ku te o!",
-      "Anh đẹp giai! Mời chè team đi",
-      "Ku te",
-      "Hi em!"
-    ]
-    replyUser res, res.random welcomes
-  
-  robot.hear /IQ /i, (res) ->
-    return if isChatBot(res)
-    replyUser res, "Em ai quy cao lắm đấy!"
+    replyUser res, "Okie đồng chí, nhớ log trên TSM nhé"
 
-  robot.hear /mời chè/i, (res) ->
+  robot.hear /du lịch/i, (res) ->
+    return if isD2Room is true
     return if isChatBot(res)
-    replyUser res, "Yeah! Đẹp trai lắm!"
+    replyUser res, "Không biết mọi người có háo hức đi xả stress không nhỉ. Cứ chọn địa điểm, việc còn lại để chúng mình lo"
 
-  robot.hear /cảm ơn/i, (res) ->
+  robot.hear /sếp/i, (res) ->
+    return if isD2Room is true
     return if isChatBot(res)
-    replyUser res, "(h)(h)(h)"
-
-  robot.hear /xin phép/i, (res) ->
-    return if isChatBot(res)
-    replyUser res, "Ok baby."
-
-  robot.hear /haylam/i, (res) ->
-    return if isChatBot(res)
-    replyUser res, "Hay lắm :p"
-
-  robot.hear /cu te/i, (res) ->
-    return if isChatBot(res)
-    replyUser res, "Ý em là Kuteo à!"
-  
-  robot.hear /bug/i, (res) ->
-    return if isChatBot(res)
-    bugs = [
-      "Bug gì đấy em?",
-      "A A A A! Bug kinh hồn!",
-      "Bắt con Phích nhanh 8-)",
-      "Bug to thế :(",
-      "Bug thế này release sao được ;("
-    ]
-    replyUser res, res.random bugs
-  
-  robot.hear /update ticket/i, (res) ->
-    return if isD3Room is true
-    return if isChatBot(res)
-    tickets = [
-      "Anh em update ticket nhanh đi nhé. Bot nhắc nhiều rồi đấy!",
-      "Anh Yoshizawa đang kêu đấy. Anh em update task nhé!"
-    ]
-    res.send res.random tickets
-
-  robot.hear /^test$/i, (res) ->
-    return if isD3Room is true
-    return if isChatBot(res)
-    replyUser res, "Test nhanh lên em. Khách hàng đang chờ"
-  
-  # robot.hear /a thắng/i, (res) -> 
-  #   return if isChatBot(res)
-  #   res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
-
-  # robot.hear /anh thắng/i, (res) -> 
-  #   return if isChatBot(res)
-  #   res.send "anh Thắng xấu trai nhất công ty (devil) (devil) (devil)"
-  
-  robot.hear /#database/i, (res) -> 
-    return if isD3Room is true
-    replyUser res, databaseSheetURL
-
-  robot.hear /#noiquy/i, (res) -> 
-    return if isD3Room is true
-    replyUser res, noiquySheetURL
-
-  robot.hear /tùng/i, (res) -> 
-    return if isChatBot(res)
-    res.send "Hello, Tùng điệu đà :D"
-
-  robot.hear /Hào/i, (res) -> 
-    return if isChatBot(res)
-    res.send "A Hào mời chè à :D"
-
-  # robot.hear /(y)/i, (res) -> 
-  #   return if isChatBot(res)
-  #   res.send "(y)"
-  
-  robot.hear /#qa/i, (res) -> 
-    return if isD3Room is true
-    return if isChatBot(res)
-    replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
-  
-  robot.hear /#Q&A/i, (res) ->
-    return if isD3Room is true 
-    return if isChatBot(res)
-    replyUser res, "Q&A Sheet đây:\n" + qaSheetURL
-  
-  robot.hear /#qcchecklist/i, (res) ->
-    return if isD3Room is true 
-    return if isChatBot(res)
-    replyUser res, "QC Checklist Sheet đây:\n" + qcCheckListSheetURL
-  
-  robot.hear /hihi/i, (res) -> 
-    return if isChatBot(res)
-    replyUser res, "A hihi! Đồ ngốc!"
-  
-  robot.hear /lìu lìu/i, (res) -> 
-    return if isChatBot(res)
-    replyUser res, "Quá lìu tìu!!!"
+    replyUser res, "Không biết ai nhắc đến Toàn-sama đẹp trai ấy nhỉ"
