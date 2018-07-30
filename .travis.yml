@@ -3,6 +3,7 @@ language: node_js
 services:
 - docker
 before_install:
+- chmod +x run.sh
 - docker login  --username=khainguyendinh --password=adgjmptw
 - docker build -t test -f Dockerfile .
 - docker run -d --name app test
