@@ -1,0 +1,19 @@
+sudo: required
+language: node_js
+services:
+- docker
+before_install:
+- docker login  --username=khainguyendinh --password=adgjmptw
+- docker build -t test -f Dockerfile .
+- docker run -d --name app test
+- docker ps -a
+script:
+- docker pull khainguyendinh/heroku
+after_script:
+- docker rm -f app
+deploy:
+ provider: script
+ skip_cleanup: true
+ script: docker run -it -v /var/run/docker.sock:/var/run/docker.sock khainguyendinh/heroku sh -c "./run.sh"
+ on:
+   branch: master
