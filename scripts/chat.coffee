@@ -69,10 +69,10 @@ module.exports = (robot) ->
     return if isChatBot(res)
     replyUser res, "Âm nhạc Lạc Trôi"
 
-  robot.hear /cơn mưa/i, (res) ->
+  robot.hear /khải đệ/i, (res) ->
     return if isD2Room is true
     return if isChatBot(res)
-    replyUser res, "Sơn tùng"
+    replyUser res, "Cơm mưa ngang qua"
 
   robot.hear /du lịch/i, (res) ->
     return if isD2Room is true
