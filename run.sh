@@ -7,5 +7,5 @@ while :
 do
 	curl https://hblab-chatbot.herokuapp.com
 	echo "I'm done!"
-	sleep 60
+	sleep 3600
 done
