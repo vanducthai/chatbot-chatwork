@@ -59,27 +59,12 @@ module.exports = (robot) ->
       return
     res.send res.random kemxois
 
-  robot.hear /nghỉ/i, (res) ->
+  robot.hear /xin nghỉ/i, (res) ->
     return if isD2Room is true
     return if isChatBot(res)
     replyUser res, "Okie đồng chí, nhớ log trên TSM nhé"
 
-  robot.hear /sơn tùng mtp/i, (res) ->
+  robot.hear /Nguyễn Duy Tuấn/i, (res) ->
     return if isD2Room is true
     return if isChatBot(res)
-    replyUser res, "Âm nhạc Lạc Trôi"
-
-  robot.hear /khải đệ/i, (res) ->
-    return if isD2Room is true
-    return if isChatBot(res)
-    replyUser res, "Cơm mưa ngang qua"
-
-  robot.hear /du lịch/i, (res) ->
-    return if isD2Room is true
-    return if isChatBot(res)
-    replyUser res, "Không biết mọi người có háo hức đi xả stress không nhỉ. Cứ chọn địa điểm, việc còn lại để chúng mình lo"
-
-  robot.hear /sếp/i, (res) ->
-    return if isD2Room is true
-    return if isChatBot(res)
-    replyUser res, "Không biết ai nhắc đến Toàn-sama đẹp trai ấy nhỉ"
+    replyUser res, "Okie anh. Đã cho vào danh sách đen :)"
