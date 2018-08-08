@@ -62,7 +62,7 @@ module.exports = (robot) ->
   robot.hear /xin nghỉ/i, (res) ->
     return if isD2Room is true
     return if isChatBot(res)
-    replyUser res, "Okie đồng chí, nhớ log trên TSM nhé"
+    replyUser res, "Okie đồng chí, nhớ log trên TMS nhé \n https://tms.insight.hblab.vn/"
 
   robot.hear /Nguyễn Duy Tuấn/i, (res) ->
     return if isD2Room is true

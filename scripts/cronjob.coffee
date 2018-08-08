@@ -31,7 +31,7 @@ module.exports = (robot) ->
     robot.send d2RoomID, toAll + "\nWeekly Meeting!\n Mọi người ơi! Đã đến giờ họp team đầu tuần. Mọi người ra phòng BIG ROOM để họp nhé!"
 
   timeOT = () ->
-    robot.send d2RoomID, toAll + "\nHôm nay có team nào OT không nhỉ? Nếu OT thì hãy đăng ký ở TSM nhé.\nhttps://tms.insight.hblab.vn/"
+    robot.send d2RoomID, toAll + "\nHôm nay có team nào OT không nhỉ? Nếu OT thì hãy đăng ký ở TMS nhé.\nhttps://tms.insight.hblab.vn/"
   #for golang
 #  dailyUpdateTicket = () ->
 #    robot.send envelope, toAll + "Mọi người update ticket trước 9h sáng nhé!"
