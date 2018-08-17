@@ -15,17 +15,25 @@ module.exports = (robot) ->
     listMornings = [
       "\nChào ngày mới mọi người! \nChúc mọi người có một ngày làm việc thật hiệu quả và vui vẻ nhé! ",
       "\nおはようございます。Ngày mới bắt đầu rồi mọi người ơi! \nĂn sáng đầy đủ. Năng lượng dồi dào. Và cùng mình Chiến nào!!!",
-      "\nTing! Ting! Ting!.\nHãy bắt đầu một ngày mới với nụ cười thật tươi nhé. "
+      "\nTing! Ting! Ting!.\nHãy bắt đầu một ngày mới với nụ cười thật tươi nhé. ",
+      "\nThay vì lo lắng người khác nói gì về mình, sao bạn không bỏ thời gian cố đạt được điều khiến họ phải khâm phục",
+      "\nSửa mình làm cung, uốn ý tưởng làm tên, lấy nghĩa vững làm đích, ngắm cho ngay rồi bắn ra, bắn ra tất phải trúng đích",
+      "\nHãy để ý xem bạn đang đi đâu, vì nếu không có ý nghĩa, bạn có thể sẽ chẳng tới được đâu",
+      "\nQuyết đoán là một tính cách của những người đàn ông và phụ nữ năng động. Quyết định nào cũng hơn là không có quyết định",
+      "\nHãy nắm lấy cơ hội! Tất cả cuộc đời là cơ hội. Người tiến xa nhất thường là người sẵn sàng hành động và chấp nhận thách thức"
     ]
-    robot.send envelope, toAll + listMornings[Math.floor(Math.random() * listMornings.length)]
+    robot.send envelope, listMornings[Math.floor(Math.random() * listMornings.length)]
 
   byeAfternoon = () ->
     listAfternoons = [
       "\nCông việc kết thúc rồi!\n Hi vọng mọi người đã có một ngày làm việc hiệu quả. Cố lên! (*)",
       "\nHôm nay bạn thế nào? \nSiêu nhân cân team chứ. Một ngày đến HBLAB là một ngày vui phải không nào. (h)",
-      "\nMột ngày tuyệt vời với bạn đúng không nào. \nNhớ log lại những gì ngày hôm nay bạn làm được và Ghi chú thêm những gì ngày mai sẽ làm nhé."
+      "\nMột ngày tuyệt vời với bạn đúng không nào. \nNhớ log lại những gì ngày hôm nay bạn làm được và Ghi chú thêm những gì ngày mai sẽ làm nhé.",
+      "\nThêm một chút bền bỉ, một chút nỗ lực, và điều tưởng chừng như là thất bại vô vọng có thể biến thành thành công rực rỡ",
+      "\nCái người đời thường thiếu là ý chí chứ không phải là sức mạnh",
+      "\nKhông phải người ta ngừng theo đuổi giấc mơ vì mình già đi, người ta già đi vì ngừng theo đuổi giấc mơ"
     ]
-    robot.send envelope, toAll + listAfternoons[Math.floor(Math.random() * listAfternoons.length)]
+    robot.send envelope, listAfternoons[Math.floor(Math.random() * listAfternoons.length)]
 
   weeklyMtg = () ->
     robot.send d2RoomID, toAll + "\nWeekly Meeting!\n Mọi người ơi! Đã đến giờ họp team đầu tuần. Mọi người ra phòng BIG ROOM để họp nhé!"
@@ -47,13 +55,13 @@ module.exports = (robot) ->
     do hiMorning
   ), null, false, tz).start()
 
-  new cronJob('45 17 * * 1-5',(->
+  new cronJob('40 17 * * 1-5',(->
     do byeAfternoon
   ), null, false, tz).start()
 
-  new cronJob('30 16 * * 1-5',(->
-    do timeOT
-  ), null, false, tz).start()
+#  new cronJob('30 16 * * 1-5',(->
+#    do timeOT
+#  ), null, false, tz).start()
 
   #  new cronJob('20 16 * * 1-5', (->
 #    do dailyMtg
